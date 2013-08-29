@@ -23,12 +23,52 @@
 		<script type="text/javascript" charset="utf-8">
 			// Documentation for client options:
 			// https://github.com/Studio-42/elFinder/wiki/Client-configuration-options
-			$(document).ready(function() {
+/* 			$(document).ready(function() {
 				$('#elfinder').elfinder({
 					url : 'elfinder-servlet/connector',
 					// , lang: 'ru'                    // language (OPTIONAL)
 				});
+			}); */
+			
+			
+			
+			var elf;
+			jQuery().ready(function() {
+
+			    //elFinder.prototype.i18.en.messages['cmdeditimage'] = 'Edit Image';          
+			    //elFinder.prototype.i18.de.messages['cmdeditimage'] = 'Bild bearbeiten';
+			    elFinder.prototype._options.commands.push('editimage');
+			    elFinder.prototype.commands.editimage = function() {
+			        this.exec = function(hashes) {
+			             //do whatever
+			        }
+			        this.getstate = function() {
+			            //return 0 to enable, -1 to disable icon access
+			            return 0;
+			        }
+			    }
+			    
+			    elf = jQuery('#elfinder').elfinder({
+			        lang: 'de',             // language (OPTIONAL)
+			        url : 'elfinder-servlet/connector',
+			        width:'100%',
+			        uiOptions : {
+			            // toolbar configuration
+			            toolbar : [
+			                ['quicklook', 'editimage']
+			                /*['copy', 'cut', 'paste'],*/
+			            ]},
+			        contextmenu : {
+			            // current directory file menu
+			            files  : [
+			                'getfile', '|','open', 'quicklook', 'editimage'
+			            ]
+			        }
+			    }).elfinder('instance');
+
 			});
+			
+			
 		</script>
 	</head>
 	<body>
