@@ -15,6 +15,7 @@ import cn.bluejoe.elfinder.service.FsService;
 
 public class PasteCommandExecutor extends AbstractJsonCommandExecutor implements CommandExecutor
 {
+	@SuppressWarnings("unused")
 	@Override
 	public void execute(FsService fsService, HttpServletRequest request, ServletContext servletContext, JSONObject json)
 			throws Exception

@@ -19,6 +19,7 @@ import cn.bluejoe.elfinder.service.FsService;
 
 public class UploadCommandExecutor extends AbstractJsonCommandExecutor implements CommandExecutor
 {
+	@SuppressWarnings("unchecked")
 	@Override
 	public void execute(FsService fsService, HttpServletRequest request, ServletContext servletContext, JSONObject json)
 			throws Exception

@@ -279,7 +279,7 @@ window.elFinder = function(node, opts) {
 					&& shortcut.shiftKey == e.shiftKey 
 					&& shortcut.ctrlKey  == ctrlKey 
 					&& shortcut.altKey   == e.altKey) {
-						e.preventDefault()
+						e.preventDefault();
 						e.stopPropagation();
 						shortcut.callback(e, self);
 						self.debug('shortcut-exec', i+' : '+shortcut.description);
@@ -4395,7 +4395,7 @@ if (elFinder && elFinder.prototype && typeof(elFinder.prototype.i18) == 'object'
 			'errArcType'           : 'Unsupported archive type.',
 			'errNoArchive'         : 'File is not archive or has unsupported archive type.',
 			'errCmdNoSupport'      : 'Backend does not support this command.',
-			'errReplByChild'       : 'The folder “$1” can’t be replaced by an item it contains.',
+			'errReplByChild'       : 'The folder â€œ$1â€� canâ€™t be replaced by an item it contains.',
 			'errArcSymlinks'       : 'For security reason denied to unpack archives contains symlinks or files with not allowed names.', // edited 24.06.2012
 			'errArcMaxSize'        : 'Archive files exceeds maximum allowed size.',
 			'errResize'            : 'Unable to resize "$1".',
@@ -4575,7 +4575,7 @@ if (elFinder && elFinder.prototype && typeof(elFinder.prototype.i18) == 'object'
 			'rotate'          : 'Rotate',
 			'rotate-cw'       : 'Rotate 90 degrees CW',
 			'rotate-ccw'      : 'Rotate 90 degrees CCW',
-			'degree'          : '°',
+			'degree'          : 'Â°',
 			'netMountDialogTitle' : 'Mount network volume', // added 18.04.2012
 			'protocol'            : 'Protocol', // added 18.04.2012
 			'host'                : 'Host', // added 18.04.2012
@@ -8471,8 +8471,8 @@ elFinder.prototype.commands.help = function() {
 			
 			html.push(sep);
 			html.push('<div class="'+lic+'">Licence: BSD Licence</div>');
-			html.push('<div class="'+lic+'">Copyright © 2009-2011, Studio 42</div>');
-			html.push('<div class="'+lic+'">„ …'+fm.i18n('dontforget')+' ”</div>');
+			html.push('<div class="'+lic+'">Copyright Â© 2009-2011, Studio 42</div>');
+			html.push('<div class="'+lic+'">â€ž â€¦'+fm.i18n('dontforget')+' â€�</div>');
 			html.push('</div>');
 		},
 		shortcuts = function() {
