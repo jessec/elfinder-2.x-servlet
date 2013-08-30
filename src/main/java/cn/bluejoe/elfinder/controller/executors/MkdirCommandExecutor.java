@@ -23,6 +23,7 @@ public class MkdirCommandExecutor extends AbstractJsonCommandExecutor implements
 		FsItemEx dir = new FsItemEx(fsi, name);
 		dir.createFolder();
 
-		json.put("added", new Object[] { getFsItemInfo(request, dir) });
+		String requestUrl = request.getRequestURL().toString();
+		json.put("added", new Object[] { getFsItemInfo(requestUrl, dir) });
 	}
 }

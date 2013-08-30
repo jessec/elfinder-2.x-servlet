@@ -89,12 +89,13 @@ public abstract class AbstractCommandExecutor implements CommandExecutor
 	public abstract void execute(FsService fsService, HttpServletRequest request, HttpServletResponse response,
 			ServletContext servletContext) throws Exception;
 
-	protected Object[] files2JsonArray(HttpServletRequest request, Collection<FsItemEx> list) throws IOException
+	protected Object[] files2JsonArray(String requestUrl, Collection<FsItemEx> list) throws IOException
 	{
 		List<Map<String, Object>> los = new ArrayList<Map<String, Object>>();
 		for (FsItemEx fi : list)
 		{
-			los.add(getFsItemInfo(request, fi));
+			
+			los.add(getFsItemInfo(requestUrl, fi));
 		}
 
 		return los.toArray();
@@ -126,7 +127,7 @@ public abstract class AbstractCommandExecutor implements CommandExecutor
 		return new FsItemEx(fsi, fsService);
 	}
 
-	protected Map<String, Object> getFsItemInfo(HttpServletRequest request, FsItemEx fsi) throws IOException
+	protected Map<String, Object> getFsItemInfo(String requestUrl, FsItemEx fsi) throws IOException
 	{
 		Map<String, Object> info = new HashMap<String, Object>();
 		info.put("hash", fsi.getHash());
@@ -139,8 +140,9 @@ public abstract class AbstractCommandExecutor implements CommandExecutor
 
 		if (fsi.getMimeType().startsWith("image"))
 		{
-			StringBuffer qs = request.getRequestURL();
-			info.put("tmb", qs.append(String.format("?cmd=tmb&target=%s", fsi.getHash())));
+			//String qs = request.getRequestURL().toString();
+			String url = requestUrl + String.format("?cmd=tmb&target=%s", fsi.getHash());
+			info.put("tmb", url);
 		}
 
 		if (fsi.isRoot())
@@ -169,7 +171,7 @@ public abstract class AbstractCommandExecutor implements CommandExecutor
 		return disp;
 	}
 
-	protected Map<String, Object> getOptions(HttpServletRequest request, FsItemEx cwd)
+	protected Map<String, Object> getOptions(FsItemEx cwd)
 	{
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("path", cwd.getName());

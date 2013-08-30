@@ -25,6 +25,7 @@ public class LsCommandExecutor extends AbstractJsonCommandExecutor implements Co
 		FsItemEx fsi = super.findItem(fsService, target);
 		super.addChildren(files, fsi);
 
-		json.put("list", files2JsonArray(request, files.values()));
+		String requestUrl = request.getRequestURL().toString();
+		json.put("list", files2JsonArray(requestUrl, files.values()));
 	}
 }

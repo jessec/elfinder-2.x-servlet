@@ -45,6 +45,7 @@ public class UploadCommandExecutor extends AbstractJsonCommandExecutor implement
 			added.add(newFile);
 		}
 
-		json.put("added", files2JsonArray(request, added));
+		String requestUrl = request.getRequestURL().toString();
+		json.put("added", files2JsonArray(requestUrl, added));
 	}
 }

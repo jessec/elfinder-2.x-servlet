@@ -51,7 +51,9 @@ public class DuplicateCommandExecutor extends AbstractJsonCommandExecutor implem
 			added.add(newFile);
 		}
 
-		json.put("added", files2JsonArray(request, added));
+		String requestUrl = request.getRequestURL().toString();
+		
+		json.put("added", files2JsonArray(requestUrl, added));
 	}
 
 }

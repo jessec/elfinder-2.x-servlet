@@ -25,7 +25,8 @@ public class RenameCommandExecutor extends AbstractJsonCommandExecutor implement
 		FsItemEx dst = new FsItemEx(fsi.getParent(), name);
 		fsi.renameTo(dst);
 
-		json.put("added", new Object[] { getFsItemInfo(request, dst) });
+		String requestUrl = request.getRequestURL().toString();
+		json.put("added", new Object[] { getFsItemInfo(requestUrl, dst) });
 		json.put("removed", new String[] { target });
 	}
 }

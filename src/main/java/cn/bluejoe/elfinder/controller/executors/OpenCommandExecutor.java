@@ -44,9 +44,11 @@ public class OpenCommandExecutor extends AbstractJsonCommandExecutor implements 
 		FsItemEx cwd = findCwd(fsService, target);
 		files.put(cwd.getHash(), cwd);
 		addChildren(files, cwd);
+		
+		String requestUrl = request.getRequestURL().toString();
 
-		json.put("files", files2JsonArray(request, files.values()));
-		json.put("cwd", getFsItemInfo(request, cwd));
-		json.put("options", getOptions(request, cwd));
+		json.put("files", files2JsonArray(requestUrl, files.values()));
+		json.put("cwd", getFsItemInfo(requestUrl, cwd));
+		json.put("options", getOptions(cwd));
 	}
 }

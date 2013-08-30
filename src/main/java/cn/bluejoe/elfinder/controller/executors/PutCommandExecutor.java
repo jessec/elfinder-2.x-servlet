@@ -25,6 +25,7 @@ public class PutCommandExecutor extends AbstractJsonCommandExecutor implements C
 		OutputStream os = fsi.openOutputStream();
 		IOUtils.write(request.getParameter("content"), os, "utf-8");
 		os.close();
-		json.put("changed", new Object[] { super.getFsItemInfo(request, fsi) });
+		String requestUrl = request.getRequestURL().toString();
+		json.put("changed", new Object[] { super.getFsItemInfo(requestUrl, fsi) });
 	}
 }

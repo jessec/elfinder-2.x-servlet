@@ -29,6 +29,7 @@ public class ParentsCommandExecutor extends AbstractJsonCommandExecutor implemen
 			fsi = fsi.getParent();
 		}
 
-		json.put("tree", files2JsonArray(request, files.values()));
+		String requestUrl = request.getRequestURL().toString();
+		json.put("tree", files2JsonArray(requestUrl, files.values()));
 	}
 }

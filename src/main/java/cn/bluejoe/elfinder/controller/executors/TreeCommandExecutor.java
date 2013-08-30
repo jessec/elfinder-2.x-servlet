@@ -25,6 +25,7 @@ public class TreeCommandExecutor extends AbstractJsonCommandExecutor implements 
 		FsItemEx fsi = super.findItem(fsService, target);
 		super.addSubfolders(files, fsi);
 
-		json.put("tree", files2JsonArray(request, files.values()));
+		String requestUrl = request.getRequestURL().toString();
+		json.put("tree", files2JsonArray(requestUrl, files.values()));
 	}
 }

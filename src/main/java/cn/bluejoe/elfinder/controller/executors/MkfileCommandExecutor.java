@@ -22,6 +22,7 @@ public class MkfileCommandExecutor extends AbstractJsonCommandExecutor implement
 		FsItemEx fsi = super.findItem(fsService, target);
 		FsItemEx dir = new FsItemEx(fsi, name);
 		dir.createFile();
-		json.put("added", new Object[] { getFsItemInfo(request, dir) });
+		String requestUrl = request.getRequestURL().toString();
+		json.put("added", new Object[] { getFsItemInfo(requestUrl, dir) });
 	}
 }

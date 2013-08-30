@@ -46,7 +46,8 @@ public class PasteCommandExecutor extends AbstractJsonCommandExecutor implements
 			}
 		}
 
-		json.put("added", files2JsonArray(request, added));
-		json.put("removed", files2JsonArray(request, removed));
+		String requestUrl = request.getRequestURL().toString();
+		json.put("added", files2JsonArray(requestUrl, added));
+		json.put("removed", files2JsonArray(requestUrl, removed));
 	}
 }
