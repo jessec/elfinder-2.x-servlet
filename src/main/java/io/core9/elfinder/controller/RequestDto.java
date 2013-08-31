@@ -8,6 +8,7 @@ import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
 import java.lang.reflect.Proxy;
 import java.util.ArrayList;
+import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -22,17 +23,21 @@ import org.apache.commons.fileupload.util.Streams;
 import org.apache.commons.io.IOUtils;
 
 public class RequestDto {
-	
+
 	private HttpServletRequest request;
 
-	public void setRequest(HttpServletRequest request) throws IOException{
+	private HashMap<String, String> param = new HashMap<String, String>();
+	private Map<String, String[]> paramValues = new HashMap<>();
+
+	public void setRequest(HttpServletRequest request) throws IOException {
 		this.request = request;
-		try
-		{
+
+		getParams();
+		getParamValues();
+
+		try {
 			request = parseMultipartContent(request);
-		}
-		catch (Exception e)
-		{
+		} catch (Exception e) {
 			throw new IOException(e.getMessage());
 		}
 	}
@@ -42,7 +47,11 @@ public class RequestDto {
 	}
 
 	public String getParameter(String key) {
-		return request.getParameter(key);
+		return param.get(key);
+	}
+
+	public String[] getParameterValues(String key) {
+		return paramValues.get(key);
 	}
 
 	public HttpSession getSession() {
@@ -52,19 +61,37 @@ public class RequestDto {
 	public StringBuffer getRequestURL() {
 		return request.getRequestURL();
 	}
-	
-	public String[] getParameterValues(String key) {
-		return request.getParameterValues(key);
-	}
-	
+
 	@SuppressWarnings("unchecked")
 	public List<FileItemStream> getAttribute(String name) {
 		return (List<FileItemStream>) request.getAttribute(name);
 	}
 
-	
-	private HttpServletRequest parseMultipartContent(final HttpServletRequest request) throws Exception
-	{
+	@SuppressWarnings("unchecked")
+	private void getParams() {
+
+		Enumeration<String> parameterNames = request.getParameterNames();
+		while (parameterNames.hasMoreElements()) {
+			String paramName = parameterNames.nextElement();
+			String paramValues = request.getParameter(paramName);
+			param.put(paramName, paramValues);
+		}
+
+	}
+
+	private void getParamValues() {
+
+		@SuppressWarnings("unchecked")
+		Enumeration<String> parameterNames = request.getParameterNames();
+		while (parameterNames.hasMoreElements()) {
+			String paramName = parameterNames.nextElement();
+			String[] values = request.getParameterValues(paramName);
+			paramValues.put(paramName, values);
+		}
+	}
+
+	private HttpServletRequest parseMultipartContent(
+			final HttpServletRequest request) throws Exception {
 		if (!ServletFileUpload.isMultipartContent(request))
 			return request;
 
@@ -74,61 +101,53 @@ public class RequestDto {
 		// Parse the request
 		ServletFileUpload upload = new ServletFileUpload();
 		FileItemIterator iter = upload.getItemIterator(request);
-		while (iter.hasNext())
-		{
+		while (iter.hasNext()) {
 			final FileItemStream item = iter.next();
 			String name = item.getFieldName();
 			InputStream stream = item.openStream();
-			if (item.isFormField())
-			{
+			if (item.isFormField()) {
 				requestParams.put(name, Streams.asString(stream));
-			}
-			else
-			{
+			} else {
 				String fileName = item.getName();
-				if (fileName != null && !"".equals(fileName.trim()))
-				{
+				if (fileName != null && !"".equals(fileName.trim())) {
 					ByteArrayOutputStream os = new ByteArrayOutputStream();
 					IOUtils.copy(stream, os);
 					final byte[] bs = os.toByteArray();
 					stream.close();
 
-					listFiles.add((FileItemStream) Proxy.newProxyInstance(this.getClass().getClassLoader(),
-						new Class[] { FileItemStream.class }, new InvocationHandler()
-						{
-							@Override
-							public Object invoke(Object proxy, Method method, Object[] args) throws Throwable
-							{
-								if ("openStream".equals(method.getName()))
-								{
-									return new ByteArrayInputStream(bs);
-								}
+					listFiles.add((FileItemStream) Proxy.newProxyInstance(this
+							.getClass().getClassLoader(),
+							new Class[] { FileItemStream.class },
+							new InvocationHandler() {
+								@Override
+								public Object invoke(Object proxy,
+										Method method, Object[] args)
+										throws Throwable {
+									if ("openStream".equals(method.getName())) {
+										return new ByteArrayInputStream(bs);
+									}
 
-								return method.invoke(item, args);
-							}
-						}));
+									return method.invoke(item, args);
+								}
+							}));
 				}
 			}
 		}
 
 		request.setAttribute(FileItemStream.class.getName(), listFiles);
-		return (HttpServletRequest) Proxy.newProxyInstance(this.getClass().getClassLoader(),
-			new Class[] { HttpServletRequest.class }, new InvocationHandler()
-			{
-				@Override
-				public Object invoke(Object arg0, Method arg1, Object[] arg2) throws Throwable
-				{
-					if ("getParameter".equals(arg1.getName()))
-					{
-						return requestParams.get(arg2[0]);
+		return (HttpServletRequest) Proxy.newProxyInstance(this.getClass()
+				.getClassLoader(), new Class[] { HttpServletRequest.class },
+				new InvocationHandler() {
+					@Override
+					public Object invoke(Object arg0, Method arg1, Object[] arg2)
+							throws Throwable {
+						if ("getParameter".equals(arg1.getName())) {
+							return requestParams.get(arg2[0]);
+						}
+
+						return arg1.invoke(request, arg2);
 					}
-
-					return arg1.invoke(request, arg2);
-				}
-			});
+				});
 	}
-
-
-
 
 }
