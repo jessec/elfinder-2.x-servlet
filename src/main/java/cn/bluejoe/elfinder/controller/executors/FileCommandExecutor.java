@@ -8,7 +8,9 @@ import java.io.InputStream;
 import java.io.OutputStream;
 
 
+
 import org.apache.commons.io.IOUtils;
+import org.json.JSONObject;
 
 import cn.bluejoe.elfinder.controller.executor.AbstractCommandExecutor;
 import cn.bluejoe.elfinder.controller.executor.CommandExecutor;
@@ -19,7 +21,7 @@ import cn.bluejoe.elfinder.util.MimeTypesUtils;
 public class FileCommandExecutor extends AbstractCommandExecutor implements CommandExecutor
 {
 	@Override
-	public void execute(FsService fsService, RequestDto request, ResponseDto response) throws Exception
+	public JSONObject execute(FsService fsService, RequestDto request, ResponseDto response) throws Exception
 	{
 		String target = request.getParameter("target");
 		boolean download = "1".equals(request.getParameter("download"));
@@ -64,5 +66,8 @@ public class FileCommandExecutor extends AbstractCommandExecutor implements Comm
 				}
 			}
 		}
+		
+		JSONObject json = new JSONObject();
+		return json;
 	}
 }

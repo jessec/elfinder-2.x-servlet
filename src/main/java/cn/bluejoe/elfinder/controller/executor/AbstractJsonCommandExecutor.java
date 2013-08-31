@@ -13,7 +13,7 @@ import cn.bluejoe.elfinder.service.FsService;
 public abstract class AbstractJsonCommandExecutor extends AbstractCommandExecutor
 {
 	@Override
-	final public void execute(FsService fsService, RequestDto request, ResponseDto response) throws Exception
+	final public JSONObject execute(FsService fsService, RequestDto request, ResponseDto response) throws Exception
 	{
 		JSONObject json = new JSONObject();
 		try
@@ -22,6 +22,7 @@ public abstract class AbstractJsonCommandExecutor extends AbstractCommandExecuto
 			response.setContentType("application/json; charset=UTF-8");
 
 			PrintWriter writer = response.getWriter();
+			System.out.println(json);
 			json.write(writer);
 			writer.flush();
 			writer.close();
@@ -31,6 +32,7 @@ public abstract class AbstractJsonCommandExecutor extends AbstractCommandExecuto
 			e.printStackTrace();
 			json.put("error", e.getMessage());
 		}
+		return json;
 	}
 
 	protected abstract void execute(FsService fsService, RequestDto request,

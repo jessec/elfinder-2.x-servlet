@@ -13,7 +13,9 @@ import java.util.List;
 import java.util.Map;
 
 
+
 import org.apache.commons.io.IOUtils;
+import org.json.JSONObject;
 
 import cn.bluejoe.elfinder.service.FsItem;
 import cn.bluejoe.elfinder.service.FsService;
@@ -86,7 +88,7 @@ public abstract class AbstractCommandExecutor implements CommandExecutor
 		execute(fileService, ctx.getRequest(), ctx.getResponse());
 	}
 
-	public abstract void execute(FsService fsService, RequestDto requestDto, ResponseDto response) throws Exception;
+	public abstract JSONObject execute(FsService fsService, RequestDto requestDto, ResponseDto response) throws Exception;
 
 	protected Object[] files2JsonArray(String requestUrl, Collection<FsItemEx> list) throws IOException
 	{

@@ -11,6 +11,7 @@ import java.util.Calendar;
 import javax.imageio.ImageIO;
 
 import org.apache.commons.lang3.time.DateUtils;
+import org.json.JSONObject;
 
 import cn.bluejoe.elfinder.controller.executor.AbstractCommandExecutor;
 import cn.bluejoe.elfinder.controller.executor.CommandExecutor;
@@ -24,7 +25,7 @@ public class TmbCommandExecutor extends AbstractCommandExecutor implements Comma
 {
 	@SuppressWarnings({ "unused", "deprecation" })
 	@Override
-	public void execute(FsService fsService, RequestDto request, ResponseDto response) throws Exception
+	public JSONObject execute(FsService fsService, RequestDto request, ResponseDto response) throws Exception
 	{
 		String target = request.getParameter("target");
 		FsItemEx fsi = super.findItem(fsService, target);
@@ -43,5 +44,9 @@ public class TmbCommandExecutor extends AbstractCommandExecutor implements Comma
 		response.setHeader("Expires", DateUtils.addDays(Calendar.getInstance().getTime(), 2 * 360).toGMTString());
 
 		ImageIO.write(b, "png", response.getOutputStream());
+		
+		
+		JSONObject json = new JSONObject();
+		return json;
 	}
 }
