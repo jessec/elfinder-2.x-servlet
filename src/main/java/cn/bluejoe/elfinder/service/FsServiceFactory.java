@@ -8,4 +8,6 @@ public interface FsServiceFactory
 
 	FsService getFileService(RequestDto requestDto);
 
+	void setFsService(FsService fsService);
+
 }
