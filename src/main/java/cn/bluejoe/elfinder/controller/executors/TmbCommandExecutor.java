@@ -1,5 +1,7 @@
 package cn.bluejoe.elfinder.controller.executors;
 
+import io.core9.elfinder.controller.RequestDto;
+
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
@@ -7,7 +9,6 @@ import java.util.Calendar;
 
 import javax.imageio.ImageIO;
 import javax.servlet.ServletContext;
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.lang3.time.DateUtils;
@@ -24,7 +25,7 @@ public class TmbCommandExecutor extends AbstractCommandExecutor implements Comma
 {
 	@SuppressWarnings({ "unused", "deprecation" })
 	@Override
-	public void execute(FsService fsService, HttpServletRequest request, HttpServletResponse response,
+	public void execute(FsService fsService, RequestDto request, HttpServletResponse response,
 			ServletContext servletContext) throws Exception
 	{
 		String target = request.getParameter("target");

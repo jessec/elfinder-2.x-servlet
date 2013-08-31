@@ -1,11 +1,12 @@
 package cn.bluejoe.elfinder.service;
 
+import io.core9.elfinder.controller.RequestDto;
+
 import javax.servlet.ServletContext;
-import javax.servlet.http.HttpServletRequest;
 
 public interface FsServiceFactory
 {
 
-	FsService getFileService(HttpServletRequest request, ServletContext servletContext);
+	FsService getFileService(RequestDto requestDto, ServletContext servletContext);
 
 }

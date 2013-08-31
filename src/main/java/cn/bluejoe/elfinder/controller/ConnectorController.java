@@ -9,6 +9,7 @@ import io.core9.elfinder.controller.Core9ConnectorController;
 
 
 
+import io.core9.elfinder.controller.RequestDto;
 import io.core9.elfinder.controller.TestInvocationHandler;
 
 import javax.annotation.Resource;
@@ -19,8 +20,10 @@ import javax.servlet.http.HttpServletResponse;
 
 
 
+
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+
 
 
 
@@ -47,7 +50,18 @@ public class ConnectorController
 		HttpServletRequest newRequest = makeHttpServletRequestProxy(request);
 		HttpServletResponse newResponse = makeHttpServletResponseProxy(response);
 		
-		core9ConnectorController.privateConnector(newRequest, newResponse, _commandExecutorFactory, _fsServiceFactory);
+		RequestDto requestDto = makeRequestDto(newRequest);
+		
+		core9ConnectorController.privateConnector(requestDto, newResponse, _commandExecutorFactory, _fsServiceFactory);
+	}
+
+	private RequestDto makeRequestDto(HttpServletRequest newRequest) throws IOException {
+		
+		RequestDto requestDto = new RequestDto();
+		requestDto.setRequest(newRequest);
+		
+		
+		return requestDto;
 	}
 
 	private HttpServletResponse makeHttpServletResponseProxy(

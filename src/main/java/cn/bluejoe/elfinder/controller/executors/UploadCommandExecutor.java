@@ -1,12 +1,13 @@
 package cn.bluejoe.elfinder.controller.executors;
 
+import io.core9.elfinder.controller.RequestDto;
+
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.ServletContext;
-import javax.servlet.http.HttpServletRequest;
 
 import org.apache.commons.fileupload.FileItemStream;
 import org.apache.commons.io.IOUtils;
@@ -19,9 +20,9 @@ import cn.bluejoe.elfinder.service.FsService;
 
 public class UploadCommandExecutor extends AbstractJsonCommandExecutor implements CommandExecutor
 {
-	@SuppressWarnings("unchecked")
+
 	@Override
-	public void execute(FsService fsService, HttpServletRequest request, ServletContext servletContext, JSONObject json)
+	public void execute(FsService fsService, RequestDto request, ServletContext servletContext, JSONObject json)
 			throws Exception
 	{
 		List<FileItemStream> listFiles = (List<FileItemStream>) request.getAttribute(FileItemStream.class.getName());
