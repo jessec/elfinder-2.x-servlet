@@ -1,7 +1,6 @@
 package cn.bluejoe.elfinder.controller.executors;
 
 import io.core9.elfinder.controller.RequestDto;
-import io.core9.elfinder.controller.ServerContext;
 
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -21,7 +20,7 @@ public class UploadCommandExecutor extends AbstractJsonCommandExecutor implement
 {
 
 	@Override
-	public void execute(FsService fsService, RequestDto request, ServerContext servletContext, JSONObject json)
+	public void execute(FsService fsService, RequestDto request, JSONObject json)
 			throws Exception
 	{
 		List<FileItemStream> listFiles = (List<FileItemStream>) request.getAttribute(FileItemStream.class.getName());

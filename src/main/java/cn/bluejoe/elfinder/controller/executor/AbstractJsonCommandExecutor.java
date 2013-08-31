@@ -2,7 +2,6 @@ package cn.bluejoe.elfinder.controller.executor;
 
 import io.core9.elfinder.controller.RequestDto;
 import io.core9.elfinder.controller.ResponseDto;
-import io.core9.elfinder.controller.ServerContext;
 
 import java.io.PrintWriter;
 
@@ -14,13 +13,12 @@ import cn.bluejoe.elfinder.service.FsService;
 public abstract class AbstractJsonCommandExecutor extends AbstractCommandExecutor
 {
 	@Override
-	final public void execute(FsService fsService, RequestDto request, ResponseDto response,
-			ServerContext servletContext) throws Exception
+	final public void execute(FsService fsService, RequestDto request, ResponseDto response) throws Exception
 	{
 		JSONObject json = new JSONObject();
 		try
 		{
-			execute(fsService, request, servletContext, json);
+			execute(fsService, request, json);
 			response.setContentType("application/json; charset=UTF-8");
 
 			PrintWriter writer = response.getWriter();
@@ -35,7 +33,7 @@ public abstract class AbstractJsonCommandExecutor extends AbstractCommandExecuto
 		}
 	}
 
-	protected abstract void execute(FsService fsService, RequestDto request, ServerContext servletContext,
+	protected abstract void execute(FsService fsService, RequestDto request,
 			JSONObject json) throws Exception;
 
 }

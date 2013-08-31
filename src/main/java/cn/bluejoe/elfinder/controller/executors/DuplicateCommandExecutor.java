@@ -1,7 +1,6 @@
 package cn.bluejoe.elfinder.controller.executors;
 
 import io.core9.elfinder.controller.RequestDto;
-import io.core9.elfinder.controller.ServerContext;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,7 +17,7 @@ import cn.bluejoe.elfinder.service.FsService;
 public class DuplicateCommandExecutor extends AbstractJsonCommandExecutor implements CommandExecutor
 {
 	@Override
-	public void execute(FsService fsService, RequestDto request, ServerContext servletContext, JSONObject json)
+	public void execute(FsService fsService, RequestDto request, JSONObject json)
 			throws Exception
 	{
 		String[] targets = request.getParameterValues("targets[]");

@@ -2,7 +2,6 @@ package cn.bluejoe.elfinder.controller.executors;
 
 import io.core9.elfinder.controller.RequestDto;
 import io.core9.elfinder.controller.ResponseDto;
-import io.core9.elfinder.controller.ServerContext;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -20,8 +19,7 @@ import cn.bluejoe.elfinder.util.MimeTypesUtils;
 public class FileCommandExecutor extends AbstractCommandExecutor implements CommandExecutor
 {
 	@Override
-	public void execute(FsService fsService, RequestDto request, ResponseDto response,
-			ServerContext servletContext) throws Exception
+	public void execute(FsService fsService, RequestDto request, ResponseDto response) throws Exception
 	{
 		String target = request.getParameter("target");
 		boolean download = "1".equals(request.getParameter("download"));

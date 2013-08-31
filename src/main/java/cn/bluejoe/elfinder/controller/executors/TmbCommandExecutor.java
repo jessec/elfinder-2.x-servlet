@@ -2,7 +2,6 @@ package cn.bluejoe.elfinder.controller.executors;
 
 import io.core9.elfinder.controller.RequestDto;
 import io.core9.elfinder.controller.ResponseDto;
-import io.core9.elfinder.controller.ServerContext;
 
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
@@ -25,8 +24,7 @@ public class TmbCommandExecutor extends AbstractCommandExecutor implements Comma
 {
 	@SuppressWarnings({ "unused", "deprecation" })
 	@Override
-	public void execute(FsService fsService, RequestDto request, ResponseDto response,
-			ServerContext servletContext) throws Exception
+	public void execute(FsService fsService, RequestDto request, ResponseDto response) throws Exception
 	{
 		String target = request.getParameter("target");
 		FsItemEx fsi = super.findItem(fsService, target);

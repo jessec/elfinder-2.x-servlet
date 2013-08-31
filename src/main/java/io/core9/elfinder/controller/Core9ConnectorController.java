@@ -46,11 +46,11 @@ public class Core9ConnectorController
 					return response;
 				}
 
-				@Override
+				/*@Override
 				public ServerContext getServletContext()
 				{
 					return null;//finalRequest.getSession().getServletContext();
-				}
+				}*/
 			});
 		}
 		catch (Exception e)

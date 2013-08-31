@@ -1,7 +1,6 @@
 package cn.bluejoe.elfinder.controller.executors;
 
 import io.core9.elfinder.controller.RequestDto;
-import io.core9.elfinder.controller.ServerContext;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -18,7 +17,7 @@ import cn.bluejoe.elfinder.service.FsVolume;
 public class OpenCommandExecutor extends AbstractJsonCommandExecutor implements CommandExecutor
 {
 	@Override
-	public void execute(FsService fsService, RequestDto request, ServerContext servletContext, JSONObject json)
+	public void execute(FsService fsService, RequestDto request, JSONObject json)
 			throws Exception
 	{
 		boolean init = request.getParameter("init") != null;

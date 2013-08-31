@@ -2,7 +2,6 @@ package cn.bluejoe.elfinder.controller.executor;
 
 import io.core9.elfinder.controller.RequestDto;
 import io.core9.elfinder.controller.ResponseDto;
-import io.core9.elfinder.controller.ServerContext;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -83,12 +82,11 @@ public abstract class AbstractCommandExecutor implements CommandExecutor
 	@Override
 	public void execute(CommandExecutionContext ctx) throws Exception
 	{
-		FsService fileService = ctx.getFsServiceFactory().getFileService(ctx.getRequest(), ctx.getServletContext());
-		execute(fileService, ctx.getRequest(), ctx.getResponse(), ctx.getServletContext());
+		FsService fileService = ctx.getFsServiceFactory().getFileService(ctx.getRequest());
+		execute(fileService, ctx.getRequest(), ctx.getResponse());
 	}
 
-	public abstract void execute(FsService fsService, RequestDto requestDto, ResponseDto response,
-			ServerContext servletContext) throws Exception;
+	public abstract void execute(FsService fsService, RequestDto requestDto, ResponseDto response) throws Exception;
 
 	protected Object[] files2JsonArray(String requestUrl, Collection<FsItemEx> list) throws IOException
 	{
