@@ -11,7 +11,6 @@ import io.core9.elfinder.controller.Core9ConnectorController;
 import io.core9.elfinder.controller.RequestDto;
 import io.core9.elfinder.controller.ResponseDto;
 
-import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -28,8 +27,6 @@ import cn.bluejoe.elfinder.impl.FsSecurityCheckForAll;
 import cn.bluejoe.elfinder.impl.FsSecurityCheckerChain;
 import cn.bluejoe.elfinder.impl.StaticFsServiceFactory;
 import cn.bluejoe.elfinder.localfs.LocalFsVolume;
-import cn.bluejoe.elfinder.service.FsSecurityChecker;
-import cn.bluejoe.elfinder.service.FsService;
 import cn.bluejoe.elfinder.service.FsServiceConfig;
 import cn.bluejoe.elfinder.service.FsServiceFactory;
 import cn.bluejoe.elfinder.service.FsVolume;
@@ -42,8 +39,8 @@ public class ConnectorController {
 	 * _commandExecutorFactory;
 	 */
 
-	@Resource(name = "fsServiceFactory")
-	private FsServiceFactory _fsServiceFactory;
+/*	@Resource(name = "fsServiceFactory")
+	private FsServiceFactory _fsServiceFactory;*/
 
 	private Core9ConnectorController core9ConnectorController = new Core9ConnectorController();
 
