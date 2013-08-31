@@ -14,5 +14,4 @@ public interface CommandExecutionContext
 
 	ResponseDto getResponse();
 
-	//ServerContext getServletContext();
 }
