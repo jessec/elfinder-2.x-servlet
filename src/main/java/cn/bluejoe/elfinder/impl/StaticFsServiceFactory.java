@@ -1,8 +1,8 @@
 package cn.bluejoe.elfinder.impl;
 
 import io.core9.elfinder.controller.RequestDto;
+import io.core9.elfinder.controller.ServerContext;
 
-import javax.servlet.ServletContext;
 
 import cn.bluejoe.elfinder.service.FsService;
 import cn.bluejoe.elfinder.service.FsServiceFactory;
@@ -12,7 +12,7 @@ public class StaticFsServiceFactory implements FsServiceFactory
 	FsService _fsService;
 
 	@Override
-	public FsService getFileService(RequestDto request, ServletContext servletContext)
+	public FsService getFileService(RequestDto request, ServerContext servletContext)
 	{
 		return _fsService;
 	}

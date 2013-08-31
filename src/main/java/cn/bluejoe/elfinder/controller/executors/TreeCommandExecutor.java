@@ -1,11 +1,11 @@
 package cn.bluejoe.elfinder.controller.executors;
 
 import io.core9.elfinder.controller.RequestDto;
+import io.core9.elfinder.controller.ServerContext;
 
 import java.util.HashMap;
 import java.util.Map;
 
-import javax.servlet.ServletContext;
 
 import org.json.JSONObject;
 
@@ -17,7 +17,7 @@ import cn.bluejoe.elfinder.service.FsService;
 public class TreeCommandExecutor extends AbstractJsonCommandExecutor implements CommandExecutor
 {
 	@Override
-	public void execute(FsService fsService, RequestDto request, ServletContext servletContext, JSONObject json)
+	public void execute(FsService fsService, RequestDto request, ServerContext servletContext, JSONObject json)
 			throws Exception
 	{
 		String target = request.getParameter("target");

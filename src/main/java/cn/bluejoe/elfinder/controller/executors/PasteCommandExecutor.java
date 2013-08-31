@@ -1,11 +1,11 @@
 package cn.bluejoe.elfinder.controller.executors;
 
 import io.core9.elfinder.controller.RequestDto;
+import io.core9.elfinder.controller.ServerContext;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.servlet.ServletContext;
 
 import org.json.JSONObject;
 
@@ -18,7 +18,7 @@ public class PasteCommandExecutor extends AbstractJsonCommandExecutor implements
 {
 	@SuppressWarnings("unused")
 	@Override
-	public void execute(FsService fsService, RequestDto request, ServletContext servletContext, JSONObject json)
+	public void execute(FsService fsService, RequestDto request, ServerContext servletContext, JSONObject json)
 			throws Exception
 	{
 		String[] targets = request.getParameterValues("targets[]");

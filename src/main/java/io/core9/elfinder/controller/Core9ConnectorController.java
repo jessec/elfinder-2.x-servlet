@@ -2,9 +2,6 @@ package io.core9.elfinder.controller;
 
 
 
-import javax.servlet.ServletContext;
-
-
 import cn.bluejoe.elfinder.controller.FsException;
 import cn.bluejoe.elfinder.controller.executor.CommandExecutionContext;
 import cn.bluejoe.elfinder.controller.executor.CommandExecutor;
@@ -50,9 +47,9 @@ public class Core9ConnectorController
 				}
 
 				@Override
-				public ServletContext getServletContext()
+				public ServerContext getServletContext()
 				{
-					return finalRequest.getSession().getServletContext();
+					return null;//finalRequest.getSession().getServletContext();
 				}
 			});
 		}
