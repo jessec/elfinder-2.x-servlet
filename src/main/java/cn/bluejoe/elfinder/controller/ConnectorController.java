@@ -10,6 +10,7 @@ import io.core9.elfinder.controller.Core9ConnectorController;
 
 
 import io.core9.elfinder.controller.RequestDto;
+import io.core9.elfinder.controller.ResponseDto;
 import io.core9.elfinder.controller.TestInvocationHandler;
 
 import javax.annotation.Resource;
@@ -21,8 +22,10 @@ import javax.servlet.http.HttpServletResponse;
 
 
 
+
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+
 
 
 
@@ -52,7 +55,9 @@ public class ConnectorController
 		
 		RequestDto requestDto = makeRequestDto(newRequest);
 		
-		core9ConnectorController.privateConnector(requestDto, newResponse, _commandExecutorFactory, _fsServiceFactory);
+		ResponseDto responseDto = makeResponseDto(newResponse);
+		
+		core9ConnectorController.privateConnector(requestDto, responseDto, _commandExecutorFactory, _fsServiceFactory);
 	}
 
 	private RequestDto makeRequestDto(HttpServletRequest newRequest) throws IOException {
@@ -62,6 +67,15 @@ public class ConnectorController
 		
 		
 		return requestDto;
+	}
+	
+	private ResponseDto makeResponseDto(HttpServletResponse newResponse) throws IOException {
+		
+		ResponseDto responseDto = new ResponseDto();
+		responseDto.setResponse(newResponse);
+		
+		
+		return responseDto;
 	}
 
 	private HttpServletResponse makeHttpServletResponseProxy(

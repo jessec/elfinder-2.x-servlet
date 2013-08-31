@@ -1,11 +1,11 @@
 package cn.bluejoe.elfinder.controller.executor;
 
 import io.core9.elfinder.controller.RequestDto;
+import io.core9.elfinder.controller.ResponseDto;
 
 import java.io.PrintWriter;
 
 import javax.servlet.ServletContext;
-import javax.servlet.http.HttpServletResponse;
 
 import org.json.JSONObject;
 
@@ -14,7 +14,7 @@ import cn.bluejoe.elfinder.service.FsService;
 public abstract class AbstractJsonCommandExecutor extends AbstractCommandExecutor
 {
 	@Override
-	final public void execute(FsService fsService, RequestDto request, HttpServletResponse response,
+	final public void execute(FsService fsService, RequestDto request, ResponseDto response,
 			ServletContext servletContext) throws Exception
 	{
 		JSONObject json = new JSONObject();

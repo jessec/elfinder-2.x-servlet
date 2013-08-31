@@ -3,7 +3,6 @@ package io.core9.elfinder.controller;
 
 
 import javax.servlet.ServletContext;
-import javax.servlet.http.HttpServletResponse;
 
 
 import cn.bluejoe.elfinder.controller.FsException;
@@ -15,7 +14,7 @@ import cn.bluejoe.elfinder.service.FsServiceFactory;
 public class Core9ConnectorController
 {
 	public void privateConnector(RequestDto request,
-			final HttpServletResponse response, CommandExecutorFactory _commandExecutorFactory, final FsServiceFactory _fsServiceFactory) throws FsException {
+			final ResponseDto response, CommandExecutorFactory _commandExecutorFactory, final FsServiceFactory _fsServiceFactory) throws FsException {
 
 
 		String cmd = request.getParameter("cmd");
@@ -45,7 +44,7 @@ public class Core9ConnectorController
 				}
 
 				@Override
-				public HttpServletResponse getResponse()
+				public ResponseDto getResponse()
 				{
 					return response;
 				}

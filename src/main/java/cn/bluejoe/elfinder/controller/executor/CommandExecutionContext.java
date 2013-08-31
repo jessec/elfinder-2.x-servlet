@@ -1,9 +1,9 @@
 package cn.bluejoe.elfinder.controller.executor;
 
 import io.core9.elfinder.controller.RequestDto;
+import io.core9.elfinder.controller.ResponseDto;
 
 import javax.servlet.ServletContext;
-import javax.servlet.http.HttpServletResponse;
 
 import cn.bluejoe.elfinder.service.FsServiceFactory;
 
@@ -13,7 +13,7 @@ public interface CommandExecutionContext
 
 	RequestDto getRequest();
 
-	HttpServletResponse getResponse();
+	ResponseDto getResponse();
 
 	ServletContext getServletContext();
 }

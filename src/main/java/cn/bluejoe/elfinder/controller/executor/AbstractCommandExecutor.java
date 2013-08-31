@@ -1,6 +1,7 @@
 package cn.bluejoe.elfinder.controller.executor;
 
 import io.core9.elfinder.controller.RequestDto;
+import io.core9.elfinder.controller.ResponseDto;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -12,7 +13,6 @@ import java.util.List;
 import java.util.Map;
 
 import javax.servlet.ServletContext;
-import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.io.IOUtils;
 
@@ -87,7 +87,7 @@ public abstract class AbstractCommandExecutor implements CommandExecutor
 		execute(fileService, ctx.getRequest(), ctx.getResponse(), ctx.getServletContext());
 	}
 
-	public abstract void execute(FsService fsService, RequestDto requestDto, HttpServletResponse response,
+	public abstract void execute(FsService fsService, RequestDto requestDto, ResponseDto response,
 			ServletContext servletContext) throws Exception;
 
 	protected Object[] files2JsonArray(String requestUrl, Collection<FsItemEx> list) throws IOException
