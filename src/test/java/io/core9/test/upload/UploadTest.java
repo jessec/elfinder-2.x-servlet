@@ -36,14 +36,51 @@ public class UploadTest {
 
 	private Core9ConnectorController core9ConnectorController = new Core9ConnectorController();
 	
+	
+	private HashMap<String, String> param = new HashMap<String, String>();
+	private Map<String, String[]> paramValues = new HashMap<String, String[]>();
 
 	
 	@Test
 	public void test() throws IOException {
 		
+		//{cmd=open, tree=1, target=B_, init=1, _=1378067380255}
+		param.put("cmd", "open");
+		param.put("tree", "1");
+		param.put("target", "B_");
+		param.put("init", "1");
+		param.put("_", "1378067380255");
+		
+		//{cmd=[open], tree=[Ljava.lang.String;@2bd30166, target=[Ljava.lang.String;@2a00e604, init=[Ljava.lang.String;@20fd2627, _=[Ljava.lang.String;@4bd3db5c}
+		String[] val1 = {"open"};
+		paramValues.put("cmd", val1);
+		String[] val2 = {"1"};
+		paramValues.put("tree", val2);
+		String[] val3 = {"B_"};
+		paramValues.put("target", val3);
+		String[] val4 = {"1378067380255"};
+		paramValues.put("init", val4);
+		
+
+		RequestDto requestDto = new RequestDto();
+		requestDto.setParam(param);
+		requestDto.setParamValues(paramValues);
+		StringBuffer requestUrl = new StringBuffer().append("http://localhost:8080/elfinder-2.x-servlet/elfinder-servlet/connector");
+		requestDto.setRequestURL(requestUrl);
+		
+		
+        HttpServletResponse response = mock(HttpServletResponse.class);  
+        PrintWriter writer = new PrintWriter("somefile.txt");
+        when(response.getWriter()).thenReturn(writer);
+		ResponseDto responseDto = new ResponseDto();
+		responseDto.setResponse(response);
+        
+        
+        
+		
+/*
 		HttpServletRequest request = mock(HttpServletRequest.class);       
         HttpServletResponse response = mock(HttpServletResponse.class);  
-		
         when(request.getParameter("username")).thenReturn("me");
         when(request.getParameter("password")).thenReturn("secret");
         PrintWriter writer = new PrintWriter("somefile.txt");
@@ -51,7 +88,7 @@ public class UploadTest {
         
 		RequestDto requestDto = makeRequestDto(request);
 		ResponseDto responseDto = makeResponseDto(response);
-
+*/
 		CommandExecutorFactory _commandExecutorFactory = new DefaultCommandExecutorFactory();
 		_commandExecutorFactory
 				.setClassNamePattern("cn.bluejoe.elfinder.controller.executors.%sCommandExecutor");
@@ -116,6 +153,7 @@ public class UploadTest {
 				_commandExecutorFactory, _fsServiceFactoryNew);
 	}
 	
+	@SuppressWarnings("unused")
 	private RequestDto makeRequestDto(HttpServletRequest newRequest)
 			throws IOException {
 
@@ -125,6 +163,7 @@ public class UploadTest {
 		return requestDto;
 	}
 
+	@SuppressWarnings("unused")
 	private ResponseDto makeResponseDto(HttpServletResponse newResponse)
 			throws IOException {
 

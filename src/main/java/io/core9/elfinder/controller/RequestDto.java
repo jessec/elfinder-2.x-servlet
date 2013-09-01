@@ -28,11 +28,14 @@ public class RequestDto {
 	private HashMap<String, String> param = new HashMap<String, String>();
 	private Map<String, String[]> paramValues = new HashMap<>();
 
+	private StringBuffer requestUrl;
+
 	public void setRequest(HttpServletRequest request) throws IOException {
 		this.request = request;
 
 		getParams();
 		getParamValues();
+		extractRequestURL();
 
 		try {
 			parseMultipartContent(request);
@@ -54,12 +57,20 @@ public class RequestDto {
 	}
 
 	public StringBuffer getRequestURL() {
-		return request.getRequestURL();
+		return requestUrl;
 	}
 
+	public void setRequestURL(StringBuffer requestUrl){
+		this.requestUrl = requestUrl;
+	}
+	
 	@SuppressWarnings("unchecked")
 	public List<FileItemStream> getAttribute(String name) {
 		return (List<FileItemStream>) request.getAttribute(name);
+	}
+	
+	private void extractRequestURL(){
+		requestUrl = request.getRequestURL();
 	}
 
 	@SuppressWarnings("unchecked")
@@ -85,8 +96,8 @@ public class RequestDto {
 		}
 	}
 
-	private void parseMultipartContent(
-			final HttpServletRequest request) throws Exception {
+	private void parseMultipartContent(final HttpServletRequest request)
+			throws Exception {
 		if (!ServletFileUpload.isMultipartContent(request))
 			return;
 
@@ -128,10 +139,18 @@ public class RequestDto {
 				}
 			}
 		}
-		
+
 		param.putAll(requestParams);
 
 		request.setAttribute(FileItemStream.class.getName(), listFiles);
+	}
+
+	public void setParam(HashMap<String, String> param) {
+		this.param = param;
+	}
+
+	public void setParamValues(Map<String, String[]> paramValues) {
+		this.paramValues = paramValues;
 	}
 
 }
