@@ -128,6 +128,8 @@ public class RequestDto {
 				}
 			}
 		}
+		
+		param.putAll(requestParams);
 
 		// FIXME remove setAttribute code!! vertx doesn't have that.
 		request.setAttribute(FileItemStream.class.getName(), listFiles);
