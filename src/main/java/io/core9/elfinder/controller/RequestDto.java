@@ -35,7 +35,7 @@ public class RequestDto {
 		getParamValues();
 
 		try {
-			request = parseMultipartContent(request);
+			parseMultipartContent(request);
 		} catch (Exception e) {
 			throw new IOException(e.getMessage());
 		}
@@ -85,10 +85,10 @@ public class RequestDto {
 		}
 	}
 
-	private HttpServletRequest parseMultipartContent(
+	private void parseMultipartContent(
 			final HttpServletRequest request) throws Exception {
 		if (!ServletFileUpload.isMultipartContent(request))
-			return request;
+			return;
 
 		final Map<String, String> requestParams = new HashMap<String, String>();
 		List<FileItemStream> listFiles = new ArrayList<FileItemStream>();
@@ -131,21 +131,7 @@ public class RequestDto {
 		
 		param.putAll(requestParams);
 
-		// FIXME remove setAttribute code!! vertx doesn't have that.
 		request.setAttribute(FileItemStream.class.getName(), listFiles);
-		return (HttpServletRequest) Proxy.newProxyInstance(this.getClass()
-				.getClassLoader(), new Class[] { HttpServletRequest.class },
-				new InvocationHandler() {
-					@Override
-					public Object invoke(Object arg0, Method arg1, Object[] arg2)
-							throws Throwable {
-						if ("getParameter".equals(arg1.getName())) {
-							return requestParams.get(arg2[0]);
-						}
-
-						return arg1.invoke(request, arg2);
-					}
-				});
 	}
 
 }
