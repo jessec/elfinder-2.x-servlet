@@ -54,10 +54,6 @@ public class RequestDto {
 		return paramValues.get(key);
 	}
 
-	public HttpSession getSession() {
-		return request.getSession();
-	}
-
 	public StringBuffer getRequestURL() {
 		return request.getRequestURL();
 	}
@@ -134,6 +130,7 @@ public class RequestDto {
 			}
 		}
 
+		// FIXME remove setAttribute code!! vertx doesn't have that.
 		request.setAttribute(FileItemStream.class.getName(), listFiles);
 		return (HttpServletRequest) Proxy.newProxyInstance(this.getClass()
 				.getClassLoader(), new Class[] { HttpServletRequest.class },
